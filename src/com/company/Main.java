@@ -3,6 +3,7 @@ package com.company;
 import com.company.modifiers.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
 
@@ -14,7 +15,10 @@ public class Main {
         modifiers.add(new DivideModifier(8));
         modifiers.add(new MultiplyModifier(-1));
 
+        // should probably name this something else xd
         Move move = new Move(4, 5, 25, modifiers);
-        System.out.println(25 + " " + move.findSolution().toString());
+        ArrayList<IModifier> steps = move.solve();
+        Collections.reverse(steps);
+        System.out.println(steps);
     }
 }

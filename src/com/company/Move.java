@@ -3,7 +3,6 @@ package com.company;
 
 import com.company.modifiers.IModifier;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Move {
@@ -25,16 +24,24 @@ public class Move {
      * @return
      * @throws Exception
      */
-    public ArrayList<IModifier> findSolution() throws Exception {
+    public ArrayList<IModifier> solve() throws Exception {
         for (IModifier modifier : availableMoves) {
             try {
+                ArrayList<IModifier> afterMoves;
+
                 int result = modifier.calculate(curValue);
-                ArrayList<IModifier> moves = new ArrayList<>();
-                moves.add(modifier);
+
                 if (movesLeft == 1 && target != result) continue;
-                else if (movesLeft != 1)
-                    moves.addAll(new Move(target, movesLeft - 1, result, availableMoves).findSolution());
-                return moves;
+
+                    // Solution found
+                else if (movesLeft == 1) afterMoves = new ArrayList<>();
+
+                else afterMoves = new Move(target, movesLeft - 1, result, availableMoves).solve();
+
+                afterMoves.add(modifier);
+
+                return afterMoves;
+
             } catch (Exception ignored) {}
         }
         throw new Exception("No solution found");
