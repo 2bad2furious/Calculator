@@ -1,21 +1,29 @@
 package com.company.modifiers;
 
 
-public class AddModifier implements IModifier {
+public class AddModifier extends AModifier {
 
-    private final int modifier;
 
     public AddModifier(int modifier) {
-        this.modifier = modifier;
+        super(modifier);
     }
 
     @Override
     public int calculate(int currentValue) throws Exception {
-        return currentValue + this.modifier;
+        return currentValue + getModifier();
+    }
+
+    @Override
+    public AModifier modify(AModifier modifier) {
+        try {
+            return new AddModifier(modifier.calculate(getModifier()));
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
     public String toString() {
-        return "+ " + modifier;
+        return "+ " + getModifier();
     }
 }
