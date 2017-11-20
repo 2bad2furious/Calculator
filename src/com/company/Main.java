@@ -16,8 +16,8 @@ public class Main {
         modifiers.add(new MultiplyModifier(-1));
 
         // should probably name this something else xd
-        CalculationResolver calculationResolver = new CalculationResolver(4, 5, 25, modifiers);
-        ArrayList<IModifier> steps = calculationResolver.solve();
+        CalculationResolver calculationResolver = new CalculationResolver();
+        ArrayList<IModifier> steps = calculationResolver.solve(4, 5, 25, modifiers);
         Collections.reverse(steps);
         System.out.println(steps);
     }
